@@ -1,0 +1,107 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="index.html">Salt-Web - Admin Panel</a>
+  </div>
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul id="active" class="nav navbar-nav side-nav">
+      <li class="selected"><a href="#"><i class="fa fa-bullseye"></i> Versionning</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right navbar-user">
+      <li class="dropdown user-dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ vm.currentUser.username }}<b class="caret"></b></a>
+	<ul class="dropdown-menu">
+	  <li><a href="#/login"><i class="fa fa-power-off"></i> Log Out</a></li>
+	</ul>
+      </li>
+      <li class="divider-vertical"></li>
+      <!-- Bouton demo pour la notification (durée d'affichage infinie) -->
+      <!--
+      <li>
+        <button ng-click="vm.demo()">
+          demo
+        </button>
+      </li>
+      -->
+    </ul>
+  </div>
+</nav>
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <label>Search: <input ng-model="searchText"></label>
+      <table class="table table-striped sui-table" style="width=50%; color: #BDBDBD;">
+	<tr>
+	  <th>
+	    <a href ng-click="vm.order(['app', 'srv'])">Application</a>
+	    <span class="sortorder" ng-show="vm.predicate === 'app'" ng-class="{reverse:reverse}"></span>
+	  </th>
+	  <th>
+	    <a href ng-click="vm.order(['srv', 'app'])">Serveur</a>
+	    <span class="sortorder" ng-show="vm.predicate === 'srv'" ng-class="{reverse:reverse}"></span>
+	  </th>
+	  <th>
+	    <a href ng-click="vm.order(['env', 'app'])">ENV</a>
+	    <span class="sortorder" ng-show="vm.predicate === 'env'" ng-class="{reverse:reverse}"></span>
+	  </th>
+	  <th>
+	    <a href ng-click="vm.order(['repo', 'app'])">Type</a>
+	    <span class="sortorder" ng-show="vm.predicate === 'repo'" ng-class="{reverse:reverse}"></span>
+	  </th>
+	  <th>
+	    <a href ng-click="vm.order('rev')">Révision sur le server</a>
+	    <span class="sortorder" ng-show="vm.predicate === 'rev'" ng-class="{reverse:reverse}"></span>
+	  </th>
+	  <th ng-if="vm.currentUser.write == 'True'">
+	    <a href ng-click="vm.order('rev')">Révision sur Redis</a>
+	    <span class="sortorder" ng-show="vm.predicate === 'rev'" ng-class="{reverse:reverse}"></span>
+	    <input style="vertical-align: middle; margin: 0px 0px 0px 16px;" type="checkbox" data-ng-model="vm.types.extpillar"/>
+	  </th>
+	  <!--    <th ng-if="vm.currentUser.write == 'True'">
+		  Refresh
+		  </th>
+	  -->
+	</tr>
+	<tr  ng-repeat="app in vm.applications | filter:searchText | myfilter:vm.types"  ng-class="( app.rev !== app.rev_server && app.rev ) ? 'danger' : ''">
+	  <td style="">{{app.app}}</td>
+	  <td style="">{{app.srv}}</td>
+	  <td style="">{{app.env}}</td>
+	  <td style="">{{app.repo}}</td>
+	  <td style="">{{app.rev_server}}</td>
+	  <td ng-if="vm.currentUser.write == 'True'" style="">
+	    <div ng-if="app.extpillar_used">
+	      <div ng-if="app.repo == 'git'">
+		<a e-style="width: 337px" editable-text="app.rev" onaftersave="vm.updateGitRev(app.srv, app.repo_id, app.app, app.repo+':'+app.env+':'+app.app, $data)">
+		  {{ app.rev || 'empty' }}
+		</a>
+	      </div>
+	      <div ng-if="app.repo == 'svn'">
+		<a e-style="width: 337px" editable-text="app.rev" onaftersave="vm.updateSvnRev(app.srv, app.repo_id, app.app, app.repo+':'+app.env+':'+app.app, $data)">
+		  {{ app.rev || 'empty' }}
+		</a>
+	      </div>
+	      <div ng-if="app.repo != 'git' && app.repo != 'svn'">
+		{{ app.rev || 'empty' }}
+	      </div>
+	    </div>
+	  </td>
+	  <!--    <td ng-if="vm.currentUser.write == 'True'" style="">
+		  <div ng-if="app.repo == 'git'">
+		    <a ng-click="vm.pullGitRev(app.srv, app.repo_id, app.app)">
+		      <button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+		    </a>
+		  </div>
+		  <div ng-if="app.repo == 'svn'">
+		    <a ng-click="vm.pullSvnRev(app.srv, app.repo_id, app.app)">
+		      <button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+		    </a>
+		  </div>
+		  <div ng-if="app.repo != 'git' && app.repo != 'svn'">
+
+		  </div>
+	  </td>
+	  -->
+	</tr>
+      </table>
+    </div>
+  </div>
+</div>

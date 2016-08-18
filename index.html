@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <title>Dashboard - Admin</title>
+
+    <link rel="stylesheet" type="text/css" href="app-content/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="app-content/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="app-content/css/local.css" />
+    
+    <script type="text/javascript" src="app-content/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="app-content/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+    <link id="gridcss" rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/dark-bootstrap/all.min.css" />
+    
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://prepbootstrap.com/Content/js/gridData.js"></script>
+
+    <link rel="icon" type="image/png" href="app-content/img/saltstack.ico">
+
+    <!-- application css -->
+    <link href="app-content/app.css" rel="stylesheet" />
+    <link href="app-content/xeditable.min.css" rel="stylesheet" />
+    <link href="app-content/angular-notify/angular-notify.css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <!-- main app container -->
+    <div id="wrapper">
+      <div class="container" style="width: 1374px;">
+        <div>
+          <ui-view></ui-view>
+        </div>
+      </div>
+    </div>
+
+    <!-- credits -->
+    <div class="text-center">
+    </div>
+
+    <!-- angular scripts -->
+    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+
+    <script src="app-content/xeditable.min.js"></script>
+    <script src="app-content/angular-notify/angular-notify.js"></script>
+
+    <!-- application scripts -->
+    <script src="app.js"></script>
+    <script src="app-services/authentication.service.js"></script>
+    <script src="home/index.controller.js"></script>
+    <script src="login/index.controller.js"></script>
+  </body>
+</html>
